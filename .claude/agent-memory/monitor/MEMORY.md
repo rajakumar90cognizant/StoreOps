@@ -1,0 +1,1 @@
+- [Sprint Outcomes Pattern](sprint-outcomes-pattern.md) — both sprints passed on first iteration with strong architecture discipline
