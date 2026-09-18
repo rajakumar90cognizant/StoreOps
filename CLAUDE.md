@@ -53,7 +53,12 @@ developer reviews spec.md, types: APPROVED
             else:
                 write .harness/output/escalation.md naming the sprint,
                 the iteration count (4), and the exact blocking issue(s)
-                copied from the last evaluator-feedback.md, and STOP.
+                copied from the last evaluator-feedback.md; also copy it
+                to .harness/reviews/sprint-N-escalation.md (mirroring how
+                a PASS sprint's generator-summary/evaluator-feedback are
+                archived) so the escalation survives in the permanent,
+                committed audit trail rather than only in the gitignored
+                .harness/output/ working directory. Then STOP.
                 A human resolves it from here -- the loop does not
                 retry a fourth time.
 ```
@@ -123,6 +128,7 @@ way, natively and inside Docker:
 
 ```
 mypy . && ruff check . \
+  && python scripts/check_module_boundaries.py \
   && pytest --cov=src/app --cov-report=json --cov-report=term-missing \
   && python scripts/check_coverage.py
 ```

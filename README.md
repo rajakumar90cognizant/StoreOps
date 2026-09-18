@@ -97,6 +97,7 @@ runs the identical commands either way).
 ```bash
 mypy .                                              # 0 errors, strict mode
 ruff check .                                         # 0 lint errors
+python scripts/check_module_boundaries.py            # AST-based module-boundary gate
 pytest --cov=src/app --cov-report=term-missing       # tests + coverage
 python scripts/check_coverage.py                     # per-layer coverage gate
 ```

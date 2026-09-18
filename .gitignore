@@ -10,4 +10,18 @@ coverage.json
 *.egg-info/
 dist/
 build/
-.harness/output/
+# Trailing /* (not a bare directory match) is required here: git will
+# not apply a negation pattern to a file inside a directory that is
+# itself excluded, so ".harness/output/" plus "!.harness/output/x" would
+# silently keep ignoring x. See https://git-scm.com/docs/gitignore
+# ("It is not possible to re-include a file if a parent directory of
+# that file is excluded").
+.harness/output/*
+# escalation.md is the one .harness/output/ artefact that must survive --
+# it is the human-facing record of why a sprint stopped, and the audit
+# trail this harness exists to keep would have a blind spot on exactly
+# its most important case if this file were discarded like the rest of
+# .harness/output/'s working files. Monitor also copies it into
+# .harness/reviews/ on escalation, mirroring the PASS-path archival
+# pattern -- see CLAUDE.md's escalation branch.
+!.harness/output/escalation.md

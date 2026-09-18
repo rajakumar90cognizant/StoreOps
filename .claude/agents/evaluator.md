@@ -28,8 +28,9 @@ commands, including the module-boundary check script:
 
 - `mypy .` == 0 errors
 - `ruff check .` == 0 errors
-- module-boundary check (see `how-to-review`) == 0 cross-module repository
-  imports
+- `python scripts/check_module_boundaries.py` == 0 cross-module repository
+  imports (AST-based -- see `how-to-review` for exactly which import forms
+  it catches)
 - `grep -rn "raise Exception\|raise HTTPException" src/app/modules/`
   returns nothing
 - every cross-module write side effect in the diff goes through

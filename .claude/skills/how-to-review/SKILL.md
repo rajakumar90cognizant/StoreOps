@@ -18,20 +18,18 @@ never estimate.
 3. **Module boundary.** Zero cross-module repository imports:
 
    ```bash
-   python3 - <<'EOF'
-   import re, pathlib
-   violations = []
-   for path in pathlib.Path("src/app/modules").rglob("*.py"):
-       module = path.parts[3]
-       text = path.read_text()
-       for m in re.finditer(r"from app\.modules\.(\w+)\.repository import", text):
-           if m.group(1) != module:
-               violations.append(f"{path}: imports {m.group(1)}.repository")
-   print("\n".join(violations) or "OK: no cross-module repository imports")
-   EOF
+   python scripts/check_module_boundaries.py
    ```
 
-   Anything printed other than the `OK:` line is a FAIL -- quote the exact
+   This is an AST walk (`scripts/check_module_boundaries.py`), not a
+   regex -- it catches every syntactic form Python allows for reaching
+   another module's repository (`from app.modules.X.repository import
+   ...`, plain `import app.modules.X.repository`, an aliased `import
+   app.modules.X.repository as x`, and `from app.modules.X import
+   repository`), not just the one form the codebase happens to use today.
+   A module importing its *own* repository is correctly allowed. Exit
+   code 0 and the `OK:` line is a PASS; any other output (one line per
+   violation, `file:line: <import text>`) is a FAIL -- quote the exact
    line in `evaluator-feedback.md`.
 
 4. **Error contract.** Zero raw raises in services/routes:
