@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mypy .)",
+      "Bash(ruff check .)",
+      "Bash(python scripts/check_module_boundaries.py)",
+      "Bash(pytest --cov=src/app --cov-report=json --cov-report=term-missing)",
+      "Bash(python scripts/check_coverage.py)",
+      "Bash(grep -rn \"raise Exception\\|raise HTTPException\" src/app/modules/)",
+      "Bash(grep -rn \"event_bus.emit\\|event_bus.subscribe\" src/app/)",
+      "Bash(mypy . && ruff check . && pytest --cov=src/app --cov-report=json --cov-report=term-missing && python scripts/check_coverage.py)",
+      "Bash(mypy . && ruff check . && python scripts/check_module_boundaries.py && pytest --cov=src/app --cov-report=json --cov-report=term-missing && python scripts/check_coverage.py)",
+      "Bash(mypy . && ruff check . && pytest --cov=src/app --cov-report=json --cov-report=term-missing && python scripts/check_coverage.py)",
+      "Bash(mypy . && ruff check . && python scripts/check_module_boundaries.py && pytest --cov=src/app --cov-report=json --cov-report=term-missing && python scripts/check_coverage.py)"
+
+    ]
+  }
+}
